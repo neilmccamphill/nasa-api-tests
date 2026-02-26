@@ -81,3 +81,10 @@ def test_missing_api_key():
 def test_invalid_date_formats(bad_date):
     response = requests.get(BASE_URL, params={"api_key": API_KEY, "date": bad_date})
     assert response.status_code == 400
+    
+def test_apod_count():
+    response = requests.get(BASE_URL, params={"api_key": API_KEY, "count": 5})
+    data = response.json()
+    assert response.status_code == 200
+    assert isinstance(data, list)
+    assert len(data) == 5
